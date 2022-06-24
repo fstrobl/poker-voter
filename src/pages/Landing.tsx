@@ -2,14 +2,10 @@ import { ChangeEvent, DetailedHTMLProps, FormEvent, useEffect, useState } from "
 import { supabase } from "../../client";
 import Input from "../components/ui/Input";
 
-import { useUser } from "@supabase/supabase-auth-helpers/react";
-
 export default function Landing() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const user = useUser();
-  console.log("user", user);
   useEffect(() => {
     console.log(email);
   }, [email]);
