@@ -2,7 +2,7 @@ import { InputHTMLAttributes, ChangeEvent } from "react";
 
 interface Props extends Omit<InputHTMLAttributes<any>, "onChange"> {
   className?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
 export default function Input({ className, onChange, ...rest }: Props) {
