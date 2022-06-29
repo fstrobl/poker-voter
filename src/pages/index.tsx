@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useState } from "react";
+import { supabase } from "../../client";
 import { useUser } from "../utils/useUser";
 import Landing from "./Landing";
 
@@ -12,14 +13,15 @@ const Home: NextPage = () => {
     console.log("user", user);
     if (!userDetails) {
       createUserRequest(user);
+      // supabase.from("users").insert([{ name }]).limit(1).eq("id", user.email);
     }
   }
   async function createUserRequest(user: Object) {
-    const response = await fetch("/api/create-user", {
-      method: "POST",
-      body: JSON.stringify(user),
-    });
-    console.log("response", response);
+    // const response = await fetch("/api/create-user", {
+    //   method: "POST",
+    //   body: JSON.stringify(user),
+    // });
+    // console.log("response", response);
   }
 
   return authenticatedState === "authenticated" ? <div>Auth</div> : <Landing raiseUser={raiseUser}></Landing>;

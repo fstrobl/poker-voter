@@ -1,6 +1,7 @@
 import { ChangeEvent, DetailedHTMLProps, FormEvent, SetStateAction, useEffect, useState } from "react";
 import { supabase } from "../../client";
 import Input from "../components/ui/Input";
+import s from "../styles/Landing.module.css";
 
 interface Props {
   raiseUser: (user: Object) => void;
@@ -47,15 +48,19 @@ export default function Landing({ raiseUser }: Props) {
     }
   };
 
+  if (loading) {
+    return <section className={s.container}>Loading...</section>;
+  }
+
   return (
-    <section>
-      <h1>Sign In</h1>
+    <section className={s.container}>
+      <h1>Magic-Link Sign In</h1>
       {submitted ? (
-        <h2>Please check your email to sign in</h2>
+        <h3>Please check your email to sign in</h3>
       ) : (
         <form onSubmit={handleSignIn} onChange={validateInput}>
+          <Input type="text" placeholder="Name" value={username} required></Input>
           <Input type="email" placeholder="Email" value={email} required></Input>
-          <Input type="text" placeholder="Enter your name" value={username} required></Input>
           <button type="submit" disabled={isSubmitDisabled}>
             Sign In
           </button>
