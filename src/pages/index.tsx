@@ -8,13 +8,13 @@ import Landing from "./Landing";
 
 const Home: NextPage = () => {
   const { authenticatedState, userDetails } = useUser();
-
-  if (!userDetails) {
-    return <h3>Loading...</h3>;
-  }
+  console.log("auth", authenticatedState);
 
   if (authenticatedState === "not-authenticated") {
     return <Landing></Landing>;
+  }
+  if (!userDetails) {
+    return <h3>Loading...</h3>;
   }
 
   return userDetails?.name ? <Auth></Auth> : <ChooseName userId={userDetails?.id}></ChooseName>;
