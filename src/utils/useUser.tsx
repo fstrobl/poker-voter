@@ -45,7 +45,7 @@ export const MyUserContextProvider = (props: Props) => {
       }
     }
     fetchUserFromDB();
-  }, [user]);
+  }, [user, isLoadingData, userDetails, supabaseClient]);
 
   return <UserContext.Provider value={{ userDetails, authenticatedState }} {...props} />;
 };
