@@ -4,7 +4,6 @@ import { supabase } from "../../../../client";
 
 export default function Header() {
   const { userDetails, authenticatedState } = useUser();
-  console.log("ud", userDetails);
 
   const handleLogout = () => {
     supabase.auth.signOut();

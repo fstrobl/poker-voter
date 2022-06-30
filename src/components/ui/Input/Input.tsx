@@ -8,7 +8,6 @@ interface Props extends Omit<InputHTMLAttributes<any>, "onChange"> {
 export default function Input({ className, onChange, ...rest }: Props) {
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
-      console.log("change");
       onChange(e.target.value);
     }
     return null;

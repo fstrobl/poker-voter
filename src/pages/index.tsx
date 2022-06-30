@@ -1,30 +1,23 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../client";
 import { useUser } from "../utils/useUser";
+import Auth from "./Auth";
+import ChooseName from "./ChooseName";
 import Landing from "./Landing";
 
 const Home: NextPage = () => {
   const { authenticatedState, userDetails } = useUser();
-  const [user, raiseUser] = useState<Object | null>(null);
-  console.log("auth", authenticatedState);
-  if (authenticatedState === "authenticated" && user) {
-    console.log("userd", userDetails);
-    console.log("user", user);
-    if (!userDetails) {
-      createUserRequest(user);
-      // supabase.from("users").insert([{ name }]).limit(1).eq("id", user.email);
-    }
-  }
-  async function createUserRequest(user: Object) {
-    // const response = await fetch("/api/create-user", {
-    //   method: "POST",
-    //   body: JSON.stringify(user),
-    // });
-    // console.log("response", response);
+
+  if (!userDetails) {
+    return <h3>Loading...</h3>;
   }
 
-  return authenticatedState === "authenticated" ? <div>Auth</div> : <Landing raiseUser={raiseUser}></Landing>;
+  if (authenticatedState === "not-authenticated") {
+    return <Landing></Landing>;
+  }
+
+  return userDetails?.name ? <Auth></Auth> : <ChooseName userId={userDetails?.id}></ChooseName>;
 };
 
 export default Home;

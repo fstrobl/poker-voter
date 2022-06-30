@@ -18,9 +18,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       handleAuthChange(event, session);
       if (event === "SIGNED_IN") {
-        console.log("e", session);
+        console.log("e", event, session);
         setAuthenticatedState("authenticated");
-        // router.push('/profile')
+        if (session) {
+          setUser(session.user);
+        }
       }
       if (event === "SIGNED_OUT") {
         setAuthenticatedState("not-authenticated");
@@ -34,7 +36,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   async function checkUser() {
     const user = await supabase.auth.user();
-
     if (user) {
       setAuthenticatedState("authenticated");
       setUser(user);

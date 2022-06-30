@@ -7,8 +7,8 @@ type UserContextType = {
   authenticatedState: AuthState;
 };
 
-type UserDetails = {
-  id: number;
+export type UserDetails = {
+  id: string;
   name: string;
   email: string;
   table_history: string[];
@@ -33,15 +33,14 @@ export const MyUserContextProvider = (props: Props) => {
     async function fetchUserFromDB() {
       if (user && user.email && !isLoadingData && !userDetails) {
         setIsLoadingData(true);
-        const result = await supabaseClient
+        const { data, error } = await supabaseClient
           .from<UserDetails>("users")
           .select()
           .limit(1)
-          .eq("email", user.email)
+          .eq("id", user.id)
           .single();
-        console.log("r", result);
 
-        setUserDetails(result.data);
+        setUserDetails(data);
       }
     }
     fetchUserFromDB();
